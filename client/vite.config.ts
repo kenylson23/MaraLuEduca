@@ -14,16 +14,6 @@ export default defineConfig({
   build: {
     outDir: "dist",
     emptyOutDir: true,
-    sourcemap: false,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          radix: ['@radix-ui/react-dialog', '@radix-ui/react-select', '@radix-ui/react-accordion'],
-          motion: ['framer-motion'],
-          icons: ['lucide-react', 'react-icons']
-        }
-      }
-    }
+    sourcemap: false
   }
 });
