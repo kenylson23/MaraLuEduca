@@ -1,7 +1,14 @@
 import { Star } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 export default function TestimonialsSection() {
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.2,
+  });
+
   const testimonials = [
     {
       name: "Maria Santos",
@@ -23,48 +30,96 @@ export default function TestimonialsSection() {
     }
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 50, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.6,
+      },
+    },
+  };
+
   return (
-    <section id="depoimentos" className="py-20">
+    <section ref={ref} id="depoimentos" className="py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 50 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8 }}
+        >
           <h2 className="text-4xl font-bold text-foreground mb-4">Depoimentos</h2>
           <p className="text-xl text-muted-foreground">
             O que dizem os pais e alunos sobre o Colégio Mara & Lú
           </p>
-        </div>
+        </motion.div>
         
-        <div className="grid md:grid-cols-3 gap-8">
+        <motion.div 
+          className="grid md:grid-cols-3 gap-8"
+          variants={containerVariants}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+        >
           {testimonials.map((testimonial, index) => (
-            <Card key={index} className="hover-scale shadow-lg">
-              <CardContent className="p-8">
-                <div className="flex items-center mb-4">
-                  <div className="flex text-primary">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={16} fill="currentColor" />
-                    ))}
+            <motion.div key={index} variants={itemVariants}>
+              <Card className="card-hover-glow shadow-lg h-full">
+                <CardContent className="p-8">
+                  <motion.div 
+                    className="flex items-center mb-4"
+                    initial={{ scale: 0 }}
+                    animate={inView ? { scale: 1 } : {}}
+                    transition={{ delay: 0.5 + index * 0.1 }}
+                  >
+                    <div className="flex text-primary">
+                      {[...Array(5)].map((_, i) => (
+                        <motion.div
+                          key={i}
+                          initial={{ opacity: 0, rotate: -180 }}
+                          animate={inView ? { opacity: 1, rotate: 0 } : {}}
+                          transition={{ delay: 0.7 + i * 0.1 }}
+                        >
+                          <Star size={16} fill="currentColor" />
+                        </motion.div>
+                      ))}
+                    </div>
+                  </motion.div>
+                  <p className="text-muted-foreground mb-6 italic" data-testid={`testimonial-content-${index}`}>
+                    "{testimonial.content}"
+                  </p>
+                  <div className="flex items-center">
+                    <motion.img 
+                      src={testimonial.image}
+                      alt={testimonial.name}
+                      className="w-12 h-12 rounded-full object-cover mr-4"
+                      data-testid={`testimonial-img-${index}`}
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ duration: 0.2 }}
+                    />
+                    <div>
+                      <h4 className="font-semibold text-foreground" data-testid={`testimonial-name-${index}`}>
+                        {testimonial.name}
+                      </h4>
+                      <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                    </div>
                   </div>
-                </div>
-                <p className="text-muted-foreground mb-6 italic" data-testid={`testimonial-content-${index}`}>
-                  "{testimonial.content}"
-                </p>
-                <div className="flex items-center">
-                  <img 
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    className="w-12 h-12 rounded-full object-cover mr-4"
-                    data-testid={`testimonial-img-${index}`}
-                  />
-                  <div>
-                    <h4 className="font-semibold text-foreground" data-testid={`testimonial-name-${index}`}>
-                      {testimonial.name}
-                    </h4>
-                    <p className="text-sm text-muted-foreground">{testimonial.role}</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
