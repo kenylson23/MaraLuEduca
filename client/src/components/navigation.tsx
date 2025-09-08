@@ -61,6 +61,18 @@ export default function Navigation() {
               Cursos
             </button>
             <button 
+              onClick={() => {
+                const element = document.querySelector('[data-testid="tuition-calculator"]');
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className="text-muted-foreground hover:text-primary transition-colors"
+              data-testid="nav-calculator"
+            >
+              Calculadora
+            </button>
+            <button 
               onClick={() => scrollToSection('galeria')}
               className="text-muted-foreground hover:text-primary transition-colors"
               data-testid="nav-galeria"
@@ -119,12 +131,23 @@ export default function Navigation() {
                   { id: 'inicio', label: 'Início' },
                   { id: 'sobre', label: 'Sobre' },
                   { id: 'cursos', label: 'Cursos' },
+                  { id: 'calculadora', label: 'Calculadora' },
                   { id: 'galeria', label: 'Galeria' },
                   { id: 'depoimentos', label: 'Depoimentos' }
                 ].map((item, index) => (
                   <motion.button
                     key={item.id}
-                    onClick={() => scrollToSection(item.id)}
+                    onClick={() => {
+                      if (item.id === 'calculadora') {
+                        const element = document.querySelector('[data-testid="tuition-calculator"]');
+                        if (element) {
+                          element.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      } else {
+                        scrollToSection(item.id);
+                      }
+                      setIsMobileMenuOpen(false);
+                    }}
                     className="text-left text-muted-foreground hover:text-primary transition-colors"
                     data-testid={`mobile-nav-${item.id}`}
                     initial={{ opacity: 0, x: -20 }}

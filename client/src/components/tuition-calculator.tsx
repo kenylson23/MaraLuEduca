@@ -95,7 +95,7 @@ export default function TuitionCalculator() {
   };
 
   return (
-    <section ref={ref} className="py-20 bg-gradient-to-br from-primary/5 to-secondary/5">
+    <section ref={ref} className="py-20 bg-gradient-to-br from-primary/5 to-secondary/5" data-testid="tuition-calculator">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-12"

@@ -2,6 +2,7 @@ import Navigation from "@/components/navigation";
 import HeroSection from "@/components/hero-section";
 import AboutSection from "@/components/about-section";
 import CoursesSection from "@/components/courses-section";
+import TuitionCalculator from "@/components/tuition-calculator";
 import GallerySection from "@/components/gallery-section";
 import TestimonialsSection from "@/components/testimonials-section";
 import NewsSection from "@/components/news-section";
@@ -15,6 +16,7 @@ export default function Home() {
       <HeroSection />
       <AboutSection />
       <CoursesSection />
+      <TuitionCalculator />
       <GallerySection />
       <TestimonialsSection />
       <NewsSection />
