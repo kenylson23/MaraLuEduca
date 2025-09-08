@@ -140,7 +140,19 @@ export default function Footer() {
         
         <div className="border-t border-gray-700 mt-8 pt-8 text-center">
           <p className="text-gray-300">
-            &copy; 2024 Colégio Mara & Lú. Todos os direitos reservados.
+            &copy; 2025 Colégio Mara & Lú. Todos os direitos reservados.
+          </p>
+          <p className="text-gray-400 text-sm mt-2">
+            Feito por{" "}
+            <a 
+              href="https://www.instagram.com/keny_ggg/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:text-primary/80 transition-colors font-medium"
+              data-testid="footer-developer-link"
+            >
+              Kenylson Lourenço
+            </a>
           </p>
         </div>
       </div>
