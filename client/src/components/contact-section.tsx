@@ -270,6 +270,7 @@ export default function ContactSection() {
                               placeholder="Conte-nos sobre as necessidades específicas ou perguntas que tem..."
                               className="h-32"
                               {...field}
+                              value={field.value || ""}
                               data-testid="textarea-message"
                             />
                           </FormControl>
