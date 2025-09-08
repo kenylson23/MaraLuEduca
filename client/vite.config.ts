@@ -19,7 +19,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom'],
-          ui: ['@radix-ui/react-dialog', '@radix-ui/react-select', '@radix-ui/react-card'],
+          radix: ['@radix-ui/react-dialog', '@radix-ui/react-select', '@radix-ui/react-accordion'],
           motion: ['framer-motion'],
           icons: ['lucide-react', 'react-icons']
         }
