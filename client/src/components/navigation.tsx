@@ -73,6 +73,18 @@ export default function Navigation() {
               Calculadora
             </button>
             <button 
+              onClick={() => {
+                const element = document.querySelector('[data-testid="virtual-tour"]');
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className="text-muted-foreground hover:text-primary transition-colors"
+              data-testid="nav-tour"
+            >
+              Tour Virtual
+            </button>
+            <button 
               onClick={() => scrollToSection('galeria')}
               className="text-muted-foreground hover:text-primary transition-colors"
               data-testid="nav-galeria"
@@ -132,6 +144,7 @@ export default function Navigation() {
                   { id: 'sobre', label: 'Sobre' },
                   { id: 'cursos', label: 'Cursos' },
                   { id: 'calculadora', label: 'Calculadora' },
+                  { id: 'tour', label: 'Tour Virtual' },
                   { id: 'galeria', label: 'Galeria' },
                   { id: 'depoimentos', label: 'Depoimentos' }
                 ].map((item, index) => (
@@ -140,6 +153,11 @@ export default function Navigation() {
                     onClick={() => {
                       if (item.id === 'calculadora') {
                         const element = document.querySelector('[data-testid="tuition-calculator"]');
+                        if (element) {
+                          element.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      } else if (item.id === 'tour') {
+                        const element = document.querySelector('[data-testid="virtual-tour"]');
                         if (element) {
                           element.scrollIntoView({ behavior: 'smooth' });
                         }

@@ -160,7 +160,6 @@ export default function VirtualTour() {
             }}
           />
           
-          {/* Controles do Tour */}
           <div className="absolute bottom-4 left-4 right-4 flex justify-between items-center">
             <div className="bg-black/70 backdrop-blur-sm rounded-lg px-4 py-2 text-white">
               <h3 className="font-bold">{selectedLocation.name}</h3>
@@ -200,7 +199,7 @@ export default function VirtualTour() {
   );
 
   return (
-    <section ref={ref} className="py-20 bg-gradient-to-br from-secondary/5 to-accent/5">
+    <section ref={ref} className="py-20 bg-gradient-to-br from-secondary/5 to-accent/5" data-testid="virtual-tour">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-12"
@@ -223,7 +222,6 @@ export default function VirtualTour() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          {/* Controles e Lista de Locais */}
           <div className="space-y-6">
             <Card className="card-hover-glow">
               <CardHeader>
@@ -305,7 +303,6 @@ export default function VirtualTour() {
             </Card>
           </div>
 
-          {/* Área Principal - Mapa ou Tour */}
           <div className="lg:col-span-2">
             <Card className="card-hover-glow">
               <CardContent className="p-6">
@@ -319,10 +316,8 @@ export default function VirtualTour() {
                       transition={{ duration: 0.5 }}
                       className="relative w-full h-[500px] bg-gradient-to-br from-primary/10 to-secondary/10 rounded-xl overflow-hidden"
                     >
-                      {/* Mapa da Escola */}
-                      <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="100" height="100" xmlns="http://www.w3.org/2000/svg"%3E%3Crect width="100" height="100" fill="%23f0f0f0"/%3E%3Cpath d="M0 0h100v100H0z" fill="none" stroke="%23ddd" stroke-width="1"/%3E%3C/svg%3E')] opacity-20"></div>
+                      <div className="absolute inset-0 bg-muted/20"></div>
                       
-                      {/* Pontos do Mapa */}
                       {tourLocations.map((location, index) => (
                         <motion.button
                           key={location.id}
@@ -345,14 +340,12 @@ export default function VirtualTour() {
                             {index + 1}
                           </div>
                           
-                          {/* Tooltip */}
                           <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 bg-black text-white px-2 py-1 rounded text-xs whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
                             {location.name}
                           </div>
                         </motion.button>
                       ))}
                       
-                      {/* Legenda */}
                       <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg p-3">
                         <h4 className="font-semibold text-sm mb-2">Legenda</h4>
                         <div className="space-y-1">
@@ -397,7 +390,6 @@ export default function VirtualTour() {
               </CardContent>
             </Card>
 
-            {/* Detalhes do Local Selecionado */}
             {selectedLocation && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -434,7 +426,6 @@ export default function VirtualTour() {
           </div>
         </motion.div>
 
-        {/* Modal Fullscreen */}
         <AnimatePresence>
           {isFullscreen && selectedLocation && (
             <motion.div
