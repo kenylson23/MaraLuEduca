@@ -21,21 +21,21 @@
 2. Acesse [netlify.com](https://netlify.com) e faça login
 3. Clique em "New site from Git"
 4. Conecte seu repositório GitHub/GitLab
-5. Configure o deploy:
-   - **Build command:** `cd client && npm install && npm run build`
-   - **Publish directory:** `client/dist`
-   - **Node version:** 18
+5. As configurações já estão no `netlify.toml`:
+   - **Build command:** `npm install --legacy-peer-deps && npm run build`
+   - **Publish directory:** `dist/public`
+   - **Node version:** 20
 
 6. Clique em "Deploy site"
 
 #### Opção 2: Drag & Drop (Rápido)
 1. Certifique-se de que o build foi feito:
    ```bash
-   cd client && npm run build
+   npm run build
    ```
 
 2. Acesse [netlify.com](https://netlify.com)
-3. Arraste a pasta `client/dist/` diretamente para o deploy
+3. Arraste a pasta `dist/public/` diretamente para o deploy
 4. Site online em poucos minutos!
 
 ### 📊 Informações do Build:
@@ -46,8 +46,9 @@
 
 ### ⚠️ Alterações para Deploy Estático:
 - **Formulário de contato:** Convertido para sistema mailto (abre cliente de email)
-- **Dependências:** Todas instaladas e testadas
-- **Configurações:** Otimizadas para Netlify
+- **Estrutura:** Corrigida de cliente separado para monorepo integrado
+- **Build:** Usando configuração raiz com todas dependências disponíveis
+- **Configurações:** Otimizadas para Netlify com Node 20
 
 ### 🔧 Funcionalidades Incluídas:
 - ✅ Site responsivo
