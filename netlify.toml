@@ -1,9 +1,9 @@
 [build]
-  command = "cd client && npm install && npm run build"
+  command = "cd client && npm install --legacy-peer-deps && npm run build"
   publish = "client/dist"
 
 [build.environment]
-  NODE_VERSION = "18"
+  NODE_VERSION = "20"
   NPM_FLAGS = "--legacy-peer-deps"
 
 [[redirects]]
