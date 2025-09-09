@@ -8,17 +8,25 @@ import { Textarea } from "@/components/ui/textarea";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
-import { apiRequest } from "@/lib/queryClient";
-import { insertContactInquirySchema, type InsertContactInquiry } from "@shared/schema";
+import { z } from "zod";
+
+const contactFormSchema = z.object({
+  parentName: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
+  phone: z.string().min(9, "Telefone deve ter pelo menos 9 dígitos"),
+  email: z.string().email("Email inválido"),
+  childName: z.string().min(2, "Nome da criança deve ter pelo menos 2 caracteres"),
+  gradeLevel: z.string().min(1, "Selecione o nível de ensino"),
+  message: z.string().min(10, "Mensagem deve ter pelo menos 10 caracteres"),
+});
+
+type ContactFormData = z.infer<typeof contactFormSchema>;
 
 export default function ContactSection() {
   const { toast } = useToast();
-  const queryClient = useQueryClient();
   
-  const form = useForm<InsertContactInquiry>({
-    resolver: zodResolver(insertContactInquirySchema),
+  const form = useForm<ContactFormData>({
+    resolver: zodResolver(contactFormSchema),
     defaultValues: {
       parentName: "",
       phone: "",
@@ -29,28 +37,34 @@ export default function ContactSection() {
     },
   });
 
-  const createInquiry = useMutation({
-    mutationFn: (data: InsertContactInquiry) =>
-      apiRequest("POST", "/api/contact-inquiries", data),
-    onSuccess: () => {
-      toast({
-        title: "Mensagem enviada!",
-        description: "Obrigado pela sua mensagem! Entraremos em contato em breve.",
-      });
-      form.reset();
-      queryClient.invalidateQueries({ queryKey: ["/api/contact-inquiries"] });
-    },
-    onError: (error: any) => {
-      toast({
-        title: "Erro ao enviar mensagem",
-        description: error.message || "Tente novamente mais tarde.",
-        variant: "destructive",
-      });
-    },
-  });
+  function onSubmit(values: ContactFormData) {
+    const subject = `Solicitação de Informações - ${values.childName} (${values.gradeLevel})`;
+    const body = `Prezados,
 
-  function onSubmit(values: InsertContactInquiry) {
-    createInquiry.mutate(values);
+Nome do Responsável: ${values.parentName}
+Telefone: ${values.phone}
+Email: ${values.email}
+
+Nome da Criança: ${values.childName}
+Nível de Ensino: ${values.gradeLevel}
+
+Mensagem:
+${values.message}
+
+---
+Enviado através do site do Colégio Mara & Lú`;
+    
+    const mailtoUrl = `mailto:info@colegiomara.ao?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    
+    // Tenta abrir o cliente de email
+    window.location.href = mailtoUrl;
+    
+    toast({
+      title: "Cliente de email aberto!",
+      description: "Complete o envio no seu aplicativo de email.",
+    });
+    
+    form.reset();
   }
 
   return (
@@ -282,10 +296,9 @@ export default function ContactSection() {
                     <Button 
                       type="submit" 
                       className="w-full bg-primary text-primary-foreground hover:bg-secondary"
-                      disabled={createInquiry.isPending}
                       data-testid="button-submit"
                     >
-                      {createInquiry.isPending ? "Enviando..." : "Enviar Solicitação"}
+                      Enviar via Email
                     </Button>
                   </form>
                 </Form>
