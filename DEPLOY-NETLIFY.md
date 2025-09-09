@@ -39,10 +39,15 @@
 4. Site online em poucos minutos!
 
 ### 📊 Informações do Build:
-- **JavaScript:** 651KB (203KB gzipped)
-- **CSS:** 65KB (12KB gzipped)
-- **HTML:** 1.2KB (0.66KB gzipped)
-- **Total:** ~717KB otimizado para web
+- **JavaScript:** 627KB (197KB gzipped)
+- **CSS:** 65KB (12KB gzipped)  
+- **HTML:** 1.2KB (0.67KB gzipped)
+- **Total:** ~693KB otimizado para web
+
+### ⚠️ Alterações para Deploy Estático:
+- **Formulário de contato:** Convertido para sistema mailto (abre cliente de email)
+- **Dependências:** Todas instaladas e testadas
+- **Configurações:** Otimizadas para Netlify
 
 ### 🔧 Funcionalidades Incluídas:
 - ✅ Site responsivo
