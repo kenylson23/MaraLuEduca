@@ -14,7 +14,7 @@
 1. Faça commit de todos os arquivos:
    ```bash
    git add .
-   git commit -m "Configuração para deploy Netlify"
+   git commit -m "Configuração corrigida para deploy Netlify"
    git push
    ```
 
@@ -22,7 +22,7 @@
 3. Clique em "New site from Git"
 4. Conecte seu repositório GitHub/GitLab
 5. As configurações já estão no `netlify.toml`:
-   - **Build command:** `npm install --legacy-peer-deps && npm run build`
+   - **Build command:** `npm install --legacy-peer-deps && npx vite build && npx esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist`
    - **Publish directory:** `dist/public`
    - **Node version:** 20
 
